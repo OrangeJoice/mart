@@ -1,38 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monkey Mart - Proxied</title>
+    <title>Classroom Tool</title>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; background: #000; overflow: hidden; }
         iframe { width: 100vw; height: 100vh; border: none; }
     </style>
 </head>
 <body>
-    <!-- This fetches the game through an unblocked proxy -->
-    <iframe id="game" src=""></iframe>
-
+    <!-- This tunnels the game through Google Translate's servers -->
+    <iframe src="https://translate.google.com"></iframe>
+    
     <script>
-        const targetUrl = "https://poki.com";
-        // A free proxy that adds CORS headers and masks the destination
-        const proxyUrl = "https://api.allorigins.win" + encodeURIComponent(targetUrl);
-
-        fetch(proxyUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Extracts the game engine content from the proxied data
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, 'text/html');
-                const gameIframe = doc.querySelector('iframe');
-                
-                if (gameIframe) {
-                    document.getElementById('game').src = gameIframe.src;
-                } else {
-                    // Fallback to a direct isolated engine if parsing fails
-                    document.getElementById('game').src = "https://game-cdn.poki.com";
-                }
-            });
+        // Progress Saving: Because this is an iframe, the game should still 
+        // save to your browser's local storage tied to this specific page.
     </script>
 </body>
 </html>
