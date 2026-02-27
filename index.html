@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Classroom Tool</title>
-    <style>
-        body, html { margin: 0; padding: 0; height: 100%; background: #000; overflow: hidden; }
-        iframe { width: 100vw; height: 100vh; border: none; }
-    </style>
+    <title>Monkey Mart - Fully Proxied</title>
+    <style>body, html, iframe { margin: 0; padding: 0; height: 100%; width: 100%; border: none; overflow: hidden; background: #000; }</style>
 </head>
 <body>
-    <!-- This tunnels the game through Google Translate's servers -->
-    <iframe src="https://translate.google.com"></iframe>
-    
+    <iframe id="gameFrame"></iframe>
+
     <script>
-        // Progress Saving: Because this is an iframe, the game should still 
-        // save to your browser's local storage tied to this specific page.
+        // 1. Register the Service Worker proxy
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').then(() => {
+                console.log("Proxy Service Worker Active");
+                
+                // 2. Once active, load the game
+                // Replace this URL with the direct game engine link if known
+                document.getElementById('gameFrame').src = "https://poki.com";
+            });
+        }
     </script>
 </body>
 </html>
