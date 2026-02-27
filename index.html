@@ -2,25 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Monkey Mart - Full Proxy</title>
-    <style>body, html, iframe { margin: 0; padding: 0; width: 100%; height: 100%; border: none; overflow: hidden; background: #000; }</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Monkey Mart - Clean</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+        /* Makes the game fill the entire screen with no borders */
+        iframe { border: none; width: 100vw; height: 100vh; display: block; }
+    </style>
 </head>
 <body>
     <iframe id="game" src="about:blank"></iframe>
 
     <script>
         if ('serviceWorker' in navigator) {
-            // 1. Start the proxy
-            navigator.serviceWorker.register('./sw.js').then(reg => {
-                console.log("Proxy Active");
+            navigator.serviceWorker.register('./sw.js').then(() => {
+                // IMPORTANT: This is a direct engine link. 
+                // If it breaks, you must find the latest .html link in the Network Tab
+                const directGameUrl = "https://game-cdn.poki.com";
                 
-                // 2. Load the game AFTER the proxy is ready
-                // Use the direct game link found in Network tab for best results
-                const gameUrl = "https://poki.com"; 
-                document.getElementById('game').src = gameUrl;
+                document.getElementById('game').src = directGameUrl;
             });
-        } else {
-            alert("Your browser doesn't support the proxy method.");
         }
     </script>
 </body>
